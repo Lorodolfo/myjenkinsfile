@@ -1,0 +1,13 @@
+pipeline{
+    agent any
+    environment{
+        INSTA="@LORODOLFO"
+    }
+    stages{
+        stage("saludo 1"){
+            steps {
+                echo "saludo desde paso 1"
+            }
+        }
+    }
+}
