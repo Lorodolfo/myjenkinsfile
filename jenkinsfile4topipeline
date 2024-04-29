@@ -1,0 +1,33 @@
+pipeline{
+    agent any
+    environment{
+        INSTA="@LORODOLFO"
+    }
+    stages{
+        stage("saludo 1"){
+            steps {
+                echo "saludo desde paso 1"
+            }
+        }
+        stage("paso 2"){
+            steps {
+                echo "Saludo desde 2"
+                echo "${INSTA}"
+            }
+        }
+        stage("paso 3, imprimir Credenciales"){
+            steps{
+                withCredentials([usernamePassword(credentialsId:'yo',usernameVariable:'CUSTOM_USER',passwordVariable:'CUSTOM_PASSWORD')]){
+                    script{
+                        echo "el usuario es $CUSTOM_USER y la contrasena es"
+                    }
+                }
+                withCredentials([string(credentialsId:'SECRET_WORDS',variable:'CUSTOM_TEXTO')]){
+                    script{
+                        echo "El texto secreto es :SECRET_WORDS"
+                    }
+                }
+            }
+        }
+    }
+}
