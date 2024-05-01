@@ -6,14 +6,14 @@ pipeline{
         string(name:'tag_image',defaultValue:'latest',description:'Etiqueta')
         string(name:'puerto_image',defaultValue:'81',description:'puerto')
     }
-    enviroment:{
+    environment{
         name_final = "${name_container}${tag_image}${puerto_image}"
     }
     stages {
         stage('stop/rm'){
             when {
                 expression{
-                    DOCKER_EXIST = sh(returnstdout: true,script 'echo "$(docker ps -q --filter name=${name_final})"')
+                    DOCKER_EXIST = sh(returnstdout: true, script: 'echo "$(docker ps -q --filter name=${name_final})"')
                     return DOCKER_EXIST != ''
                 }
             }
